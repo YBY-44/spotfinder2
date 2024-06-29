@@ -1,5 +1,5 @@
 {
-  "name": "@autospace/api",
+  "name": "@spotfinder2/api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -13,6 +13,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "tsc": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -20,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@spotfinder2/sample-lib": "workspace:*",
     "@nestjs/common": "^10.3.9",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
