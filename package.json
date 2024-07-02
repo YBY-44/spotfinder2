@@ -31,9 +31,12 @@
     "@types/node": "^20.14.9",
     "@types/react": "^18",
     "@types/supertest": "^6.0.0",
+    "husky": "^8.0.0",
     "prettier": "^3.0.0",
     "supertest": "^6.3.3",
-    "typescript": "^5.5.2",
-    "husky": "^8.0.0"
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "@prisma/client": "5.16.1"
   }
 }
