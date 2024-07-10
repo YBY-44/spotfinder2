@@ -12,27 +12,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
+// 用户
 model User {
     uid       String   @id
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name  String?
     image String?
+    // 验证信息 包括邮箱密码等
     Credentials  Credentials?
+    // 验证提供者
     AuthProvider AuthProvider?
+    // 是否为管理
     Admin        Admin?
+    // 是否为经理
     Manager      Manager?
+    // 是否为提供者
     Valet        Valet?
+    // 是否为客户
     Customer     Customer?
 }
 
 model Admin {
     uid  String @id
+    // 外键用户表 uid为key
     User User   @relation(fields: [uid], references: [uid])
 
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
+    // 验证集合
     Verifications Verification[]
 }
 
@@ -49,7 +57,7 @@ model Credentials {
 
 model AuthProvider {
     uid String @id
-
+    // 第三方注册公司为
     type AuthProviderType
     User User             @relation(fields: [uid], references: [uid])
 }
@@ -65,9 +73,9 @@ model Customer {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    // 昵称
     displayName String?
-
+    // 订单有哪些 历史订单有哪些
     Bookings Booking[]
     Reviews  Review[]
 }
@@ -78,11 +86,12 @@ model Manager {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    // 昵称
     displayName String?
-
+    // 公司号和公司
     companyId       Int?              @unique
     Company         Company?          @relation(fields: [companyId], references: [id])
+    // 时间表
     BookingTimeline BookingTimeline[]
 }
 
@@ -92,11 +101,11 @@ model Valet {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    // 昵称，车号
     displayName String
     image       String?
     licenceID   String  @default("")
-
+    // 公司和预订时段，开始结束时间
     companyId         Int?
     Company           Company?          @relation(fields: [companyId], references: [id])
     BookingTimeline   BookingTimeline[]
@@ -113,7 +122,7 @@ model Company {
 
     displayName String?
     description String?
-
+    // 车库，管理员，车
     Garages  Garage[]
     Managers Manager[]
     Valets   Valet[]
@@ -142,6 +151,7 @@ model Address {
     updatedAt DateTime @updatedAt
 
     address String
+    // 经纬度
     lat     Float
     lng     Float
 
@@ -155,8 +165,9 @@ model Slot {
     updatedAt DateTime @updatedAt
 
     displayName  String?
-    pricePerHour Float
-
+    pricePerHour Float?
+    pricePerDay Float?
+    pricePerWeek Float?
     length Int?
     width  Int?
     height Int?
@@ -174,6 +185,8 @@ model Booking {
     updatedAt DateTime @updatedAt
 
     pricePerHour  Float?
+    pricePerDay   Float?
+    pricePerWeek  Float?
     totalPrice    Float?
     startTime     DateTime
     endTime       DateTime

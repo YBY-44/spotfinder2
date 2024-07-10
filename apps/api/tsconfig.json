@@ -2,18 +2,20 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
+    "strict": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "target": "ES2021",
+    // "esModuleInterop": true,
+    "target": "ES2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "paths": {
-      "@nestjs/*": ["node_modules/@nestjs/*"]
-    },
-    "moduleResolution": "node",
+    // "paths": {
+    //   "@nestjs/*": ["node_modules/@nestjs/*"],
+    //   "@prisma/client": ["./node_modules/.prisma/client"]
+    // },
+    // "moduleResolution": "node",
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,

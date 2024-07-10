@@ -1,0 +1,69 @@
+mutation RegistUserwithUserself(
+  $registWithUserselfInput: RegistWithUserselfInput!
+) {
+  registUserwithUserself(registWithUserselfInput: $registWithUserselfInput) {
+    updatedAt
+    uid
+    name
+    image
+    createdAt
+  }
+}
+mutation RegistUserwithProvider(
+  $registWithProviderInput: RegistWithProviderInput!
+) {
+  registUserwithProvider(registWithProviderInput: $registWithProviderInput) {
+    updatedAt
+    uid
+    name
+    image
+    createdAt
+  }
+}
+query Companies(
+  $distinct: [CompanyScalarFieldEnum!]
+  $orderBy: [CompanyOrderByWithRelationInput!]
+  $where: CompanyWhereInput
+  $cursor: CompanyWhereUniqueInput
+  $skip: Int
+  $take: Int
+) {
+  companies(
+    distinct: $distinct
+    orderBy: $orderBy
+    where: $where
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    createdAt
+    description
+    displayName
+    garages {
+      id
+    }
+    id
+    managers {
+      uid
+    }
+    updatedAt
+  }
+}
+
+mutation UserLogin($userLoginInput: LoginInput!) {
+  userLogin(userLoginInput: $userLoginInput) {
+    token
+    user {
+      uid
+      name
+      image
+    }
+  }
+}
+
+query GetAuthProvider($uid: String!) {
+  getAuthProvider(uid: $uid) {
+    uid
+    type
+  }
+}

@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Booking" ADD COLUMN     "pricePerDay" DOUBLE PRECISION,
+ADD COLUMN     "pricePerWeek" DOUBLE PRECISION;
+
+-- AlterTable
+ALTER TABLE "Slot" ADD COLUMN     "pricePerDay" DOUBLE PRECISION,
+ADD COLUMN     "pricePerWeek" DOUBLE PRECISION,
+ALTER COLUMN "pricePerHour" DROP NOT NULL;

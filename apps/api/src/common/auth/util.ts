@@ -21,3 +21,15 @@ export const checkRowLevelPermission = (
     throw new ForbiddenException('It is not your own account ! forbidden !');
   }
 };
+// 小写化
+export const toTitleCase = (str: string) => {
+  return str
+    .replace(/([A-Z])/g, ' $1') // insert a space before all capital letters
+    .replace(/^./, function (str) {
+      return str.toUpperCase();
+    }); // uppercase the first character
+};
+// 生成数字
+export const generateSixDigitNumber = () => {
+  return Math.floor(Math.random() * 900000) + 100000;
+};

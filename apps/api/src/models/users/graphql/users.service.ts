@@ -15,6 +15,7 @@ import { UpdateUserInput } from './dtos/update-user.input';
 import * as bcrypt from 'bcryptjs';
 import { v4 as uuid } from 'uuid';
 import { JwtService } from '@nestjs/jwt';
+import { Prisma } from '@prisma/client';
 @Injectable()
 export class UsersService {
   // 导入jwt包
@@ -38,12 +39,7 @@ export class UsersService {
     });
   }
 
-  async registWithUserself({
-    email,
-    name,
-    password,
-    image,
-  }: RegistWithUserselfInput) {
+  async registWithUserself({ email, password }: RegistWithUserselfInput) {
     const isExist = await this.prisma.credentials.findUnique({
       where: { email },
     });
@@ -58,8 +54,6 @@ export class UsersService {
     return this.prisma.user.create({
       data: {
         uid,
-        name,
-        image,
         Credentials: {
           create: {
             email,
@@ -107,10 +101,13 @@ export class UsersService {
       },
     );
     // return token
-    return { token: jwtToken };
+    return { token: jwtToken, user };
   }
 
   findAll(args: FindManyUserArgs) {
+    return this.prisma.user.findMany(args);
+  }
+  findAll2(args: Prisma.UserFindManyArgs) {
     return this.prisma.user.findMany(args);
   }
 

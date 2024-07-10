@@ -21,7 +21,6 @@ class FindManyUserArgsStrict
       Omit<Prisma.UserFindManyArgs, 'include' | 'select'>
     >
 {
-  // @Field({ nullable:true })
   where: UserWhereInput;
   orderBy: UserOrderByWithRelationInput[];
   cursor: UserWhereUniqueInput;

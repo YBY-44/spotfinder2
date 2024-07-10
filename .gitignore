@@ -3,3 +3,8 @@ build
 dist 
 .text 
 .env
+
+
+
+.nx/cache
+.nx/workspace-data

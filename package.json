@@ -16,12 +16,12 @@
   },
   "scripts": {
     "format": "prettier  \"{apps,libs}/**/*.{ts,tsx,js,json}\" --ignore-path .gitignore",
-    "format:check": "pnpm format --check",
-    "format:write": "pnpm format --write",
-    "tsc": "pnpm --parallel -r run tsc",
-    "lint": "pnpm --parallel -r run lint",
-    "build": "pnpm --parallel -r run build",
-    "validate": "pnpm format:write && pnpm tsc && pnpm lint && pnpm build",
+    "format:check": "yarn format --check",
+    "format:write": "yarn format --write",
+    "tsc": "yarn nx run-many -t tsc",
+    "lint": "yarn nx run-many -t lint",
+    "build": "yarn nx run-many -t build",
+    "validate": "yarn format:write && yarn tsc && yarn lint && yarn build",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -34,7 +34,8 @@
     "husky": "^8.0.0",
     "prettier": "^3.0.0",
     "supertest": "^6.3.3",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.2",
+    "nx": "19.3.2"
   },
   "dependencies": {
     "@prisma/client": "5.16.1"

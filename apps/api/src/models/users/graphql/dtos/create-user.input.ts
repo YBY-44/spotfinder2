@@ -25,10 +25,8 @@ export class RegistWithProviderInput extends PickType(
 
 @InputType()
 export class RegistWithUserselfInput {
-  name: string;
   email: string;
   password: string;
-  image?: string;
 }
 
 @InputType()
@@ -40,4 +38,5 @@ export class LoginInput extends PickType(RegistWithUserselfInput, [
 @ObjectType()
 export class LoginOutput {
   token: string;
+  user: User;
 }
