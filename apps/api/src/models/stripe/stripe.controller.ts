@@ -27,6 +27,7 @@ export class StripeController {
 
   @Post()
   create(@Body() createStripeDto: CreateStripeDto) {
+    console.log('createStripeDto: ', createStripeDto);
     return this.stripeService.createStripeSession(createStripeDto);
   }
 

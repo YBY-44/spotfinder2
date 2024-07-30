@@ -5,6 +5,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+  // app.enableCors({
+  //   origin: 'http://localhost:3002', // 允许的前端域
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   credentials: true,
+  // });
   const config = new DocumentBuilder()
     .setTitle('SpotFinder2 | Boyang Yu')
     .setDescription(

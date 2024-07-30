@@ -1,5 +1,5 @@
-import { TypedDocumentNode } from '@apollo/client/core/types';
-import { print } from 'graphql';
+import { TypedDocumentNode } from "@apollo/client/core/types";
+import { print } from "graphql";
 export interface FetchResult<TData> {
   data?: TData;
   error?: string;
@@ -18,10 +18,11 @@ export async function fetchGraphQL<TData, V>({
   token,
 }: GraphqlRequestOptions<TData, V>): Promise<FetchResult<TData>> {
   const query = print(document);
-  return await fetch(process.env.NEXT_PUBLIC_API_URL + '/graphql', {
-    method: 'POST',
+  console.log("try to query");
+  return await fetch(process.env.NEXT_PUBLIC_API_URL + "/graphql", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : null),
     },
     body: JSON.stringify({ query, variables }),
@@ -31,13 +32,13 @@ export async function fetchGraphQL<TData, V>({
       if (errors) {
         console.log(errors);
         return {
-            error: JSON.stringify(errors[0].message)
-        }
+          error: JSON.stringify(errors[0].message),
+        };
       }
-      return {data};
+      return { data };
+    })
+    .catch((error) => {
+      console.log(error);
+      return { error: JSON.stringify(error[0].message) };
     });
-    // .catch((error) => {
-    //   console.log(error);
-    //   return { error: JSON.stringify(error[0].message) };
-    // });
 }

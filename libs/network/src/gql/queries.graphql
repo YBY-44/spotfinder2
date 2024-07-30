@@ -25,8 +25,8 @@ query Companies(
   $orderBy: [CompanyOrderByWithRelationInput!]
   $where: CompanyWhereInput
   $cursor: CompanyWhereUniqueInput
-  $skip: Int
-  $take: Int
+  $skip: Float
+  $take: Float
 ) {
   companies(
     distinct: $distinct
@@ -65,5 +65,45 @@ query GetAuthProvider($uid: String!) {
   getAuthProvider(uid: $uid) {
     uid
     type
+  }
+}
+
+query SearchGarages($dateFilter: DateFilterInput!, $locationFilter: LocationFilterInput!, $slotsFilter: SlotWhereInput, $garageFilter: GarageFilter) {
+  searchGarages(dateFilter: $dateFilter, locationFilter: $locationFilter, slotsFilter: $slotsFilter, garageFilter: $garageFilter) {
+    id
+    address {
+      lat
+      lng
+      address
+    }
+    verification {
+      verified
+    }
+    availableSlots(dateFilter: $dateFilter, slotsFilter: $slotsFilter) {
+      pricePerHour
+      type
+      count
+    }
+    images,
+    displayName
+  }
+}
+
+query MyCompany {
+  myCompany {
+    id
+    garages {
+      description
+      id
+      displayName
+      address {
+        id
+        address
+        lat
+        lng
+      }
+    }
+    createdAt
+    displayName
   }
 }

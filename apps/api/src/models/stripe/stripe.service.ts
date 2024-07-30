@@ -7,7 +7,6 @@ import { toTitleCase } from 'src/common/auth/util';
 @Injectable()
 export default class StripeService {
   public stripe: Stripe;
-
   constructor() {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: '2024-06-20',
@@ -15,13 +14,25 @@ export default class StripeService {
   }
 
   async createStripeSession({
-    totalPriceObj,
+    totalPriceObject,
     uid,
     bookingData,
   }: CreateStripeDto) {
+    if (!totalPriceObject) {
+      console.log('totalPriceObj is null');
+      return;
+    }
+    if (!uid) {
+      console.log('uid is null');
+      return;
+    }
+    if (!bookingData) {
+      console.log('bookingData is null');
+      return;
+    }
     const session = await this.stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: Object.entries(totalPriceObj)
+      line_items: Object.entries(totalPriceObject)
         .filter(([, price]) => price > 0)
         .map(([name, price]) => ({
           quantity: 1,

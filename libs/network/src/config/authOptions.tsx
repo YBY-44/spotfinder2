@@ -1,11 +1,14 @@
-import { NextAuthOptions, getServerSession } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { UserLoginDocument, RegistUserwithProviderDocument } from '@spotfinder2/network/src/gql/generated';
-import { fetchGraphQL } from '../../fetch';
+import { NextAuthOptions, getServerSession } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import {
+  UserLoginDocument,
+  RegistUserwithProviderDocument,
+} from "@spotfinder2/network/src/gql/generated";
+import { fetchGraphQL } from "../../fetch";
 import * as jwt from "jsonwebtoken";
-import {JWT} from "next-auth/jwt";
-import { AuthProviderType } from '@spotfinder2/network/src/gql/generated';
+import { JWT } from "next-auth/jwt";
+import { AuthProviderType } from "@spotfinder2/network/src/gql/generated";
 
 const MAX_AGE = 1 * 24 * 24 * 60;
 
@@ -18,26 +21,29 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          scope: 'openid profile',
+          scope: "openid profile",
         },
       },
     }),
     // Credentials provider configuration for email/password authentication
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       // Authorize function to validate user credentials
       async authorize(credentials) {
         // Implement credential validation logic
+        console.log("Credentials");
         if (!credentials) {
-          throw new Error('Email or Password is required!');
+          console.error("Credentials is undefined");
+          throw new Error("Email or Password is required!");
         }
         const { email, password } = credentials;
         if (!email || !password) {
-          throw new Error('Email or Password is incorrect!');
+          console.error("Email or Password is empty");
+          throw new Error("Email or Password is incorrect!");
         }
         try {
           const { data, error } = await fetchGraphQL({
@@ -45,8 +51,11 @@ export const authOptions: NextAuthOptions = {
             variables: { userLoginInput: { email, password } },
           });
           if (!data?.userLogin.token || error) {
+            console.error(
+              "Authetication failed: Invalid credientials or user or not found!",
+            );
             throw new Error(
-              'Authetication failed: Invalid credientials or user or not found!'
+              "Authetication failed: Invalid credientials or user or not found!",
             );
           }
           const uid = data.userLogin.user.uid;
@@ -59,8 +68,11 @@ export const authOptions: NextAuthOptions = {
             email,
           };
         } catch (error) {
+          console.error(
+            "Authetication failed: Invalid credientials or user or not found!",
+          );
           throw new Error(
-            'Authetication failed: Invalid credientials or user or not found!'
+            "Authetication failed: Invalid credientials or user or not found!",
           );
         }
       },
@@ -68,11 +80,10 @@ export const authOptions: NextAuthOptions = {
   ],
 
   // Enable debug mode for development
-  debug: true,
-
+  debug: process.env.NODE_ENV === "development",
   // Configure session settings
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: MAX_AGE,
   },
 
@@ -83,7 +94,8 @@ export const authOptions: NextAuthOptions = {
     async encode({ token, secret }): Promise<string> {
       // Implement custom JWT encoding logic
       if (!token) {
-        throw new Error('Token is undefined');
+        console.error("Token is undefined");
+        throw new Error("Token is undefined");
       }
       const { sub, ...tokenProps } = token;
       // Get the current date in seconds since the epoch
@@ -94,59 +106,65 @@ export const authOptions: NextAuthOptions = {
         { uid: sub, ...tokenProps, exp: expirationTimestamp },
         secret,
         {
-          algorithm: 'HS256',
-        }
+          algorithm: "HS256",
+        },
       );
     },
     // Custom JWT decoding function
     async decode({ token, secret }): Promise<JWT | null> {
       // Implement custom JWT decoding logic
       if (!token) {
-        throw new Error('Token is undefined');
+        throw new Error("Token is undefined");
       }
 
       try {
         const decodedToken = jwt.verify(token, secret, {
-          algorithms: ['HS256'],
+          algorithms: ["HS256"],
         });
         return decodedToken as JWT;
       } catch (error) {
+        console.error("Failed to decode token:", error);
         return null;
       }
       // ...
     },
   },
-//   cookies: {
-//     sessionToken: {
-//       name: `${secureCookies ? '__Secure-' : ''}next-auth.session-token`,
-//       options: {
-//         httpOnly: true,
-//         sameSite: 'lax',
-//         path: '/',
-//         secure: secureCookies,
-//         domain: hostName == 'localhost' ? hostName : '.' + rootDomain, // add a . in front so that subdomains are included
-//       },
-//     },
-//   },
+  //   cookies: {
+  //     sessionToken: {
+  //       name: `${secureCookies ? '__Secure-' : ''}next-auth.session-token`,
+  //       options: {
+  //         httpOnly: true,
+  //         sameSite: 'lax',
+  //         path: '/',
+  //         secure: secureCookies,
+  //         domain: hostName == 'localhost' ? hostName : '.' + rootDomain, // add a . in front so that subdomains are included
+  //       },
+  //     },
+  //   },
 
   // Configure callback functions
   callbacks: {
     // Sign-in callback
     async signIn({ user, account }) {
       // Implement sign-in logic, e.g., create user in database
-      if (account?.provider=='google'){
-        const {id, name, image} = user;
-        const {} = await fetchGraphQL({
+      if (account?.provider == "google") {
+        const { id, name, image } = user;
+        try {
+          const {} = await fetchGraphQL({
             document: RegistUserwithProviderDocument,
-            variables:{
-                registWithProviderInput:{
-                    uid:id,
-                    type: AuthProviderType.Google,
-                    image,
-                    name: name || ''
-                }
-            }
-        })
+            variables: {
+              registWithProviderInput: {
+                uid: id,
+                type: AuthProviderType.Google,
+                image,
+                name: name || "",
+              },
+            },
+          });
+        } catch (error) {
+          console.error("Failed to register user with provider:", error);
+          return false;
+        }
       }
       return true;
     },
@@ -156,19 +174,20 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = {
           image: token.picture,
-          uid: (token.uid as string) || '',
+          uid: (token.uid as string) || "",
           email: token.email,
           name: token.name,
         };
+      } else {
+        console.log("Token is undefined");
       }
       return session;
       // ...
     },
   },
-
   // Configure custom pages
   pages: {
-    signIn: '/signIn',
+    signIn: "/signIn",
   },
 };
 

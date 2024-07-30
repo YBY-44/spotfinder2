@@ -12,7 +12,6 @@ export class CreateBookingInput extends PickType(
   garageId: Garage['id'];
   @Field(() => SlotType)
   type: SlotType;
-
   @Field(() => Float)
   pricePerHour?: number;
   @Field(() => Float)

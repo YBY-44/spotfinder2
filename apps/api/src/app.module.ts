@@ -21,6 +21,7 @@ import { ReviewsModule } from './models/reviews/reviews.module';
 import { ValetAssignmentsModule } from './models/valet-assignments/valet-assignments.module';
 import { VerificationsModule } from './models/verifications/verifications.module';
 import { CustomersModule } from './models/customers/customers.module';
+import { StripeModule } from './models/stripe/stripe.module';
 // TODO: move this to uttl lib
 const MAX_AGE = 24 * 60 * 60;
 @Module({
@@ -37,10 +38,11 @@ const MAX_AGE = 24 * 60 * 60;
       fieldResolverEnhancers: ['guards'],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: {
-        numberScalarMode: 'integer',
+        // numberScalarMode: 'integer',
       },
     }),
     PrismaModule,
+    StripeModule,
     UsersModule,
     ValetsModule,
     ValetAssignmentsModule,

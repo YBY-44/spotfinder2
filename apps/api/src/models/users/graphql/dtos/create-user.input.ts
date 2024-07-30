@@ -24,7 +24,11 @@ export class RegistWithProviderInput extends PickType(
 }
 
 @InputType()
-export class RegistWithUserselfInput {
+export class RegistWithUserselfInput extends PickType(
+  User,
+  ['name', 'image'],
+  InputType,
+) {
   email: string;
   password: string;
 }

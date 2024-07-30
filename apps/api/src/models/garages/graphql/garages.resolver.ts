@@ -174,7 +174,8 @@ export class GaragesResolver {
       ...args, // 可选的其他车库过滤条件
     };
     const garages = await this.prisma.garage.findMany(garageFilters);
-
+    console.log('try to search garges:');
+    console.log(garages);
     return garages;
   }
 

@@ -3,6 +3,6 @@ import { CreateBookingInput } from 'src/models/bookings/graphql/dtos/create-book
 
 export class CreateStripeDto {
   uid: string;
-  totalPriceObj: TotalPrice;
+  totalPriceObject: TotalPrice;
   bookingData: CreateBookingInput;
 }

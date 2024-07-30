@@ -39,7 +39,12 @@ export class UsersService {
     });
   }
 
-  async registWithUserself({ email, password }: RegistWithUserselfInput) {
+  async registWithUserself({
+    email,
+    password,
+    name,
+    image,
+  }: RegistWithUserselfInput) {
     const isExist = await this.prisma.credentials.findUnique({
       where: { email },
     });
@@ -54,6 +59,8 @@ export class UsersService {
     return this.prisma.user.create({
       data: {
         uid,
+        name,
+        image,
         Credentials: {
           create: {
             email,
@@ -73,6 +80,7 @@ export class UsersService {
   }
   // 编写用户登录
   async userlogin({ email, password }: LoginInput): Promise<LoginOutput> {
+    console.log('User try to Login');
     // 查找用户
     const user = await this.prisma.user.findFirst({
       where: { Credentials: { email } },
@@ -82,6 +90,7 @@ export class UsersService {
     });
     // 如果找不到
     if (!user) {
+      console.log('Invalid usernanme or password!');
       throw new UnauthorizedException('Invalid usernanme or password!');
     }
     // check password
@@ -91,6 +100,7 @@ export class UsersService {
     );
     // if password incorrect
     if (!iscorrectPassword) {
+      console.log('Invalid usernanme or password!');
       throw new UnauthorizedException('Invalid usernanme or password!');
     }
     // generate token

@@ -32,7 +32,6 @@ export class UsersResolver {
     private readonly prisma: PrismaService,
   ) {}
 
-  // @AllowAuthenticated()
   @Mutation(() => LoginOutput)
   async userLogin(
     @Args('userLoginInput')
@@ -47,7 +46,6 @@ export class UsersResolver {
     return await this.usersService.findOne({ where: { uid: user.uid } });
   }
 
-  @AllowAuthenticated()
   @Mutation(() => User)
   async registUserwithUserself(
     @Args('registWithUserselfInput')
@@ -56,7 +54,6 @@ export class UsersResolver {
     return await this.usersService.registWithUserself(args);
   }
 
-  @AllowAuthenticated()
   @Mutation(() => User)
   async registUserwithProvider(
     @Args('registWithProviderInput')
@@ -71,14 +68,14 @@ export class UsersResolver {
     console.log('Admin we find for you for all uid.');
     return this.usersService.findAll(args);
   }
-  @AllowAuthenticated()
+
   @Query(() => User, { name: 'user' })
   findOne(@Args() args: FindUniqueUserArgs, @GetUser() user: GetUserType) {
     checkRowLevelPermission(user, args.where.uid);
     return this.usersService.findOne(args);
   }
 
-  // @AllowAuthenticated()
+  @AllowAuthenticated()
   @Mutation(() => User)
   async updateUser(
     @Args('updateUserInput') args: UpdateUserInput,
@@ -92,7 +89,7 @@ export class UsersResolver {
     return this.usersService.update(args);
   }
 
-  // @AllowAuthenticated()
+  @AllowAuthenticated()
   @Mutation(() => User)
   async removeUser(
     @Args() args: FindUniqueUserArgs,
