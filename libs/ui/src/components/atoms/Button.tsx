@@ -57,6 +57,9 @@ export const Button = ({
   type = "button",
   ...props
 }: IButtonProps) => {
+  if (loading) {
+    disabled = true;
+  }
   const varientColors = variantColor[varient][color];
   const sizeClass = sizes[size];
   const fwColors = fullWidth && "w-full";

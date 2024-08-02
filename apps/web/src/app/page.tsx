@@ -12,41 +12,9 @@ export default function Home() {
   // const { data: sessionData, status } = useSession();
   console.log(data);
   // const [open, setIsOpen] = useState(false);
-  const { data: garages } = useQuery(SearchGaragesDocument, {
-    variables: {
-      dateFilter: { end: "2024-7-31", start: "2024-7-23" },
-      locationFilter: {
-        ne_lat: 0.1,
-        ne_lng: 0.1,
-        sw_lat: -0.1,
-        sw_lng: -0.1,
-      },
-    },
-  });
   return (
     <main className="p-8">
-      <div>
-        {data?.companies.map((company) => {
-          return (
-            <div key={company.id} className="p-4 rounded">
-              <div>{company.displayName}</div>
-              <div>{company.description}</div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="p-8">
-        {garages?.searchGarages.map((garage) => {
-          return (
-            <div key={garage.id}>
-              <div>{garage.id}</div>
-              <div>{garage.address?.lat}</div>
-              <div>{garage.address?.lng}</div>
-              <pre>{JSON.stringify(garage)}</pre>
-            </div>
-          );
-        })}
-      </div>
+      11
     </main>
   );
 }

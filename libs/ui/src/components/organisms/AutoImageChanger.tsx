@@ -7,7 +7,7 @@ import {
 export interface AutoImageChangerProps {
   images: string[];
   durationPerImage: number;
-  aspectRatio: "aspect-square" | "aspect-auto" | "aspect-video";
+  aspectRatio?: "aspect-square" | "aspect-auto" | "aspect-video";
   noAutoChange?: boolean;
 }
 export const AutoImageChanger = ({
@@ -38,7 +38,7 @@ export const AutoImageChanger = ({
       <img
         src={images[currentImageIndex]}
         alt="Garage"
-        className="object-cover h-full w-full"
+        className="object-cover h-full w-full aspect-[1/1]"
       />
       <div className="absolute bottom-0 left-0 right-0 flex jusitify-center p-1 space-x-2">
         {images.map((_, index) => {

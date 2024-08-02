@@ -14,11 +14,15 @@ export class CompaniesService {
     managerId,
     managerName,
   }: CreateCompanyInput) {
-    const manager = this.prisma.manager.findUnique({
+    console.log('managerId', managerId);
+    console.log('managerName', managerName);
+    console.log('displayName', displayName);
+    const manager = await this.prisma.manager.findUnique({
       where: {
         uid: managerId,
       },
     });
+    console.log('manager', manager);
     if (manager) {
       throw new BadRequestException(
         'This user is a Manager of another company, this user can not create any company',

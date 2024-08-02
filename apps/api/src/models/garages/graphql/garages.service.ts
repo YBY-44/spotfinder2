@@ -18,12 +18,13 @@ export class GaragesService {
     Slots,
   }: CreateGarageInput & { companyId: number }) {
     // if slot number is larger than 10
-    const validSlot = Slots.some((slot) => {
+    const InvalidSlot = Slots.some((slot) => {
       return slot.count > 10;
     });
-    if (!validSlot) {
+    if (InvalidSlot) {
       throw new Error('Slot count cannot be more than 10 for any slot type.');
     }
+    console.log('Slots', Slots);
     return this.prisma.$transaction(async (tx) => {
       const createdGarage = await tx.garage.create({
         data: {
@@ -35,11 +36,11 @@ export class GaragesService {
         },
       });
       const slotsByType = this.groupSlotsByType(Slots, createdGarage.id);
-
       const createSlots = await tx.slot.createMany({
         data: slotsByType,
       });
-      return createSlots;
+      console.log('createSlots', createSlots);
+      return createdGarage;
     });
   }
 
@@ -75,7 +76,7 @@ export class GaragesService {
       BIKE: 0,
       BICYCLE: 0,
     };
-
+    console.log('slots', slots);
     slots.forEach(({ count, ...slot }) => {
       for (let i = 0; i < count; i++) {
         slotsByType.push({
