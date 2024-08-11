@@ -6,8 +6,12 @@ import { LoadingPage } from "../molecules/Loader";
 import { AlertSection } from "../molecules/AlertSection";
 import { CreateCompany } from "./CreateCompnay";
 import React, { ReactNode } from "react";
-type RenderPropChild = (id:number) => ReactNode;
-export const IsManager = ({ children }: {children: RenderPropChild | ReactNode}) => {
+type RenderPropChild = (id: number) => ReactNode;
+export const IsManager = ({
+  children,
+}: {
+  children: RenderPropChild | ReactNode;
+}) => {
   console.log("Checking if you are a manager...");
   const { data, loading } = useQuery(MyCompanyDocument);
   if (loading) {
@@ -19,12 +23,15 @@ export const IsManager = ({ children }: {children: RenderPropChild | ReactNode})
     return (
       <AlertSection>
         <div>You don&apos;t have a company yet.</div>
-        <CreateCompany/>
+        <CreateCompany />
       </AlertSection>
     );
   }
-  return(
-  <>
-  {typeof children === "function" ? (children as RenderPropChild)(data.myCompany.id) : children}
-  </>)
+  return (
+    <>
+      {typeof children === "function"
+        ? (children as RenderPropChild)(data.myCompany.id)
+        : children}
+    </>
+  );
 };

@@ -67,13 +67,18 @@ export const LoginForm = ({ className }: ILoginFormProps) => {
         <HtmlInput {...register("password")} className="" type="password" />
       </HtmlLabel>
       <Button type="submit">Submit</Button>
-      <div className="mt-4 text-sm">
-        Do not have an spotfinder2 account?
-        <br />
-        <Link href="/regist" className="font-bold underline underline-offset-4">
-          Create one
-        </Link>{" "}
-        now
+
+      <div className="mt-4 text-sm flex flex-col">
+        <div>Do not have an spotfinder2 account?</div>
+        <div className="flex items-center mt-2">
+          <Link
+            href="/regist"
+            className="font-bold bg-primary text-white p-1 px-2 mx-3 rounded-md"
+          >
+            Create one
+          </Link>{" "}
+          now
+        </div>
       </div>
     </Form>
   );

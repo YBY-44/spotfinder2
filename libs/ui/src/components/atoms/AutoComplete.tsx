@@ -36,7 +36,7 @@ export const AutoComplete = <T,>({
               type="text"
               {...params.inputProps}
               placeholder={placeholder}
-              className="w-full py-2 pl-3 text-sm pr-8 rounded-none shadow-none focus:ring-0 border border-white"
+              className="w-full py-2 pl-3 text-sm pr-8 rounded-md shadow-md focus:ring-0 border border-white"
             />
             <IconSearch className="w-4 h-4 text-gray-800 stroke-2 -ml-7" />
           </div>

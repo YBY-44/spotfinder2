@@ -14,7 +14,7 @@ export type IButtonProps = {
 const variantColor = {
   contained: {
     primary:
-      "text-black bg-primary border-2 border-primary enabled:hover:bg-primary-600",
+      "text-white bg-primary border-2 border-primary enabled:hover:bg-primary-600",
     white: "text-black bg-white",
     black: "text-primary bg-black enabled:hover:bg-gray-900",
     success: "text-white bg-green enabled:hover:bg-green-700",
@@ -24,7 +24,7 @@ const variantColor = {
   outlined: {
     primary: "border-2 border-primary text-black enabled:hover:bg-black/10",
     white: "border-2 border-white text-white enabled:hover:bg-white/10",
-    black: "border-2 border-black text-black enabled:hover:bg-black/10",
+    black: "border border-black text-black bg-white enabled:hover:bg-black/5",
     success: "border-2 border-green text-green enabled:hover:bg-green-100",
     error: "border-2 border-red text-red enabled:hover:bg-red-100",
   },
@@ -57,8 +57,10 @@ export const Button = ({
   type = "button",
   ...props
 }: IButtonProps) => {
-  if (loading) {
+  if (loading || disabled) {
     disabled = true;
+  } else {
+    disabled = false;
   }
   const varientColors = variantColor[varient][color];
   const sizeClass = sizes[size];

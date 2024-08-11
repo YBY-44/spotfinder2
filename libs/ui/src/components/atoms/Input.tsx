@@ -7,7 +7,7 @@ export const HtmlInput = React.forwardRef<HTMLInputElement, HtmlInputProps>(
     <input
       ref={ref}
       className={
-        `rounded-md block w-full px-3 py-2 border rounded appearance-none placeholder-gray read-only:text-gray-600 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm ` +
+        `rounded-md block w-full px-3 py-2 border rounded appearance-none placeholder-gray read-only:text-gray-600 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-black ` +
         className
       }
       {...props}

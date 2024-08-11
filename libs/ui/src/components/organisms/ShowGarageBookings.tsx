@@ -1,16 +1,16 @@
-import { Icon } from '@mui/material';
+import { Icon } from "@mui/material";
 import {
   BookingStatus,
   QueryMode,
-} from '@spotfinder2/network/src/gql/generated';
-import { IconSearch } from '@tabler/icons-react';
-import { use, useState } from 'react';
-import { ShowData } from './ShowData';
-import { useQuery } from '@apollo/client';
-import { BookingsForGarageDocument } from '@spotfinder2/network/src/gql/generated';
-import { useTakeStep } from '@spotfinder2/util/hooks/pagination';
-import { ManageBookingCard } from './ManageBookingCard';
-import { CheckInOutButton } from './CheckInOutButton';
+} from "@spotfinder2/network/src/gql/generated";
+import { IconSearch } from "@tabler/icons-react";
+import { use, useState } from "react";
+import { ShowData } from "./ShowData";
+import { useQuery } from "@apollo/client";
+import { BookingsForGarageDocument } from "@spotfinder2/network/src/gql/generated";
+import { useTakeStep } from "@spotfinder2/util/hooks/pagination";
+import { ManageBookingCard } from "./ManageBookingCard";
+import { CheckInOutButton } from "./CheckInOutButton";
 export const ShowGarageBookings = ({
   garageId,
   status,
@@ -22,7 +22,7 @@ export const ShowGarageBookings = ({
   showCheckIn?: boolean;
   showCheckOut?: boolean;
 }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const { take, setTake, skip, setSkip } = useTakeStep();
   const { data, loading, error } = useQuery(BookingsForGarageDocument, {
     variables: {
@@ -45,19 +45,19 @@ export const ShowGarageBookings = ({
       },
     },
   });
-  console.log('data', data);
+  console.log("data", data);
   return (
-    <div className='mt-4'>
-      <div className='flex justify-center mb-8'>
-        <div className='flex justify-start items-center gap-2 w-full max-w-xl rounded-full shadow-lg bg-white px-4 hover:shadow-xl focus:shadow-xl duration-300'>
+    <div className="mt-4">
+      <div className="flex justify-center mb-8">
+        <div className="flex justify-start items-center gap-2 w-full max-w-xl rounded-full shadow-lg bg-white px-4 hover:shadow-xl focus:shadow-xl duration-300">
           <IconSearch />
           <input
-            placeholder='Search vehicle number'
+            placeholder="Search vehicle number"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
             }}
-            className='py-2 m-0 text-sm flex-grow py-4 bg-transparent focus:outline-none'
+            className="py-2 m-0 text-sm flex-grow py-4 bg-transparent focus:outline-none"
           />
         </div>
       </div>
@@ -72,27 +72,42 @@ export const ShowGarageBookings = ({
           totalCount: data?.bookingsCount.count,
         }}
       >
-        {' '}
+        {" "}
         {data?.bookingsForGarage.map((booking) => {
+          let flag_for_valet = true;
+          if (
+            booking.valetAssignment === null ||
+            booking.valetAssignment === undefined
+          ) {
+            flag_for_valet = false;
+            console.log(
+              "booking: ",
+              booking,
+              "flag_for_valet: ",
+              flag_for_valet,
+            );
+          }
+
           return (
             <div key={booking.id}>
               <ManageBookingCard booking={booking} />
               {showCheckIn ? (
                 <CheckInOutButton
+                  now={flag_for_valet ? booking.status || undefined : undefined}
                   bookingId={booking.id}
                   status={BookingStatus.CheckedIn}
-                  buttonText='Check In'
+                  buttonText="Check In"
                 />
               ) : null}
-            {showCheckOut ? (
+              {showCheckOut ? (
                 <CheckInOutButton
+                  now={flag_for_valet ? booking.status || undefined : undefined}
                   bookingId={booking.id}
                   status={BookingStatus.CheckedOut}
-                  buttonText='Check Out'
+                  buttonText="Check Out"
                 />
               ) : null}
             </div>
-            
           );
         })}
       </ShowData>

@@ -6,7 +6,7 @@ export interface IZoomControlsProps {}
 
 const MapControls = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex flex-col overflow-hidden gap-0.5 space-y rounded shadow-lg device-primary-800 backdrop-blur-sm">
+    <div className="flex flex-col overflow-hidden gap-0.5 space-y rounded-md shadow-lg device-primary-800 backdrop-blur-sm">
       {children}
     </div>
   );
@@ -66,7 +66,7 @@ export const VCZoomControls = ({
         onClick?.({ lng, lat });
       }}
     >
-      <Icon className="p-1.5 w-8 h-8 text-black" />
+      <Icon className="p-1.5 w-8 h-8 text-black rounded-md" />
     </ZoomControlButton>
   );
 };

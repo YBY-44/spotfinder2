@@ -9,7 +9,7 @@ export const AlertSection = ({ title, children }: AlertSectionProps) => {
       {title ? (
         <div className="mb-1 text-lg font-semibold text-center">{title}</div>
       ) : null}
-      <div className="h-64 bg-white">
+      <div className="h-64 bg-white shadow-md rounded-md">
         <div className="flex flex-col items-center justify-center h-full gap-4 font-light">
           {children}
         </div>

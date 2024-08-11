@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 export const TitleValue = ({
   title,
   children,
@@ -7,9 +7,11 @@ export const TitleValue = ({
   children: ReactNode;
 }) => {
   return (
-    <div>
-      <strong className='font-semibold'>{title}</strong>{' '}
-      <div className='text-sm'>{children}</div>
+    <div className="w-full">
+      <strong className="block font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
+        {title}
+      </strong>{" "}
+      <div className="text-sm">{children}</div>
     </div>
   );
 };
@@ -23,9 +25,8 @@ export const TitleStrongValue = ({
 }) => {
   return (
     <div>
-      <strong className='text-sm text-gray'>{title}</strong>{' '}
-      <div className='text-sm'>{children}</div>
+      <div className="text-sm text-gray-500">{title}</div>{" "}
+      <div className="text-black">{children}</div>
     </div>
   );
 };
-

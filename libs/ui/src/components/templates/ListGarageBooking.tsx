@@ -1,8 +1,8 @@
-'use client';
-import { useState } from 'react';
-import { Tab, TabPanel, Tabs } from '../molecules/Tabs';
-import { ShowGarageBookings } from '../organisms/ShowGarageBookings';
-import { BookingStatus } from '@spotfinder2/network/src/gql/generated';
+"use client";
+import { useState } from "react";
+import { Tab, TabPanel, Tabs } from "../molecules/Tabs";
+import { ShowGarageBookings } from "../organisms/ShowGarageBookings";
+import { BookingStatus } from "@spotfinder2/network/src/gql/generated";
 export interface ListBookingProps {
   garageId: number;
 }
@@ -15,18 +15,18 @@ export const ListGaragesBookings = ({ garageId }: ListBookingProps) => {
         onChange={(e, v) => {
           setValue(v);
         }}
-        aria-label='bookings'
+        aria-label="bookings"
       >
-        <Tab label='IN' />
-        <Tab label='OUT' />
-        <Tab label='RESLOVED' />
+        <Tab label="IN" />
+        <Tab label="OUT" />
+        <Tab label="RESLOVED" />
       </Tabs>
       <TabPanel value={value} index={0}>
         <ShowGarageBookings
           garageId={garageId}
           status={[
             BookingStatus.Booked,
-            BookingStatus.ValetPickedUp,
+            BookingStatus.ValetStopped,
             BookingStatus.ValetAssignedForCheckIn,
           ]}
           showCheckIn
@@ -38,6 +38,7 @@ export const ListGaragesBookings = ({ garageId }: ListBookingProps) => {
           status={[
             BookingStatus.CheckedIn,
             BookingStatus.ValetAssignedForCheckOut,
+            BookingStatus.ValetReturned,
           ]}
           showCheckOut
         />
@@ -45,9 +46,7 @@ export const ListGaragesBookings = ({ garageId }: ListBookingProps) => {
       <TabPanel value={value} index={2}>
         <ShowGarageBookings
           garageId={garageId}
-          status={[
-            BookingStatus.CheckedOut
-          ]}
+          status={[BookingStatus.CheckedOut]}
         />
       </TabPanel>
     </div>

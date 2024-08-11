@@ -17,18 +17,15 @@ import { FilterSideBar } from "../organisms/search/FilterSideBar";
 export const SearchPage = () => {
   const { register, setValue, watch } = useFormContext<FormTypeSearchGarages>();
   const formData = watch();
-  console.log("formData", formData);
   const handleMapChange = useCallback(
     (target: ViewStateChangeEvent["target"]) => {
       const bounds = target.getBounds();
-      console.log(bounds);
       const locationFilter = {
         ne_lat: bounds?.getNorthEast().lat || 0,
         ne_lng: bounds?.getNorthEast().lng || 0,
         sw_lat: bounds?.getSouthWest().lat || 0,
         sw_lng: bounds?.getSouthWest().lng || 0,
       };
-      console.log(locationFilter);
       setValue("locationFilter", { ...locationFilter });
     },
     [setValue],

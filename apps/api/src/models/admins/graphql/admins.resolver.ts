@@ -29,10 +29,17 @@ export class AdminsResolver {
   ) {}
 
   @Mutation(() => Admin)
-  createAdmin(
+  async createAdmin(
     @Args('createAdminInput') args: CreateAdminInput,
     @GetUser() user: GetUserType,
   ) {
+    const uid = args.uid;
+    const result = await this.prisma.user.findFirst({ where: { uid } });
+    if (!result) {
+      throw new Error('User not found.');
+    } else {
+      console.log(result);
+    }
     checkRowLevelPermission(user, args.uid);
     return this.adminsService.create(args);
   }
@@ -67,13 +74,19 @@ export class AdminsResolver {
     return this.adminsService.update(args);
   }
 
-  @AllowAuthenticated()
+  // @AllowAuthenticated()
   @Mutation(() => Admin)
   async removeAdmin(
     @Args() args: FindUniqueAdminArgs,
     @GetUser() user: GetUserType,
   ) {
     const admin = await this.prisma.admin.findUnique(args);
+    if (!admin) {
+      throw new Error('Admin not found.');
+    }
+    if (admin.uid === user.uid) {
+      throw new Error('You cannot delete yourself.');
+    }
     checkRowLevelPermission(user, admin.uid);
     return this.adminsService.remove(args);
   }

@@ -4,6 +4,9 @@ import { ReactNode } from "react";
 import { BrandIcon } from "../atoms/BrandIcon";
 import React from "react";
 import { IconArrowBack } from "@tabler/icons-react";
+import { CarScene } from "@spotfinder2/3d/src/scenes/CarScene";
+import { RotatingCamera } from "@spotfinder2/3d/src/components/Rotating";
+import { GoogleButton } from "@spotfinder2/ui/src/components/molecules/GoogleButton";
 export interface IAuthLayoutProps {
   children: ReactNode;
   title: string;
@@ -11,19 +14,27 @@ export interface IAuthLayoutProps {
 
 export const AuthLayout = ({ children, title }: IAuthLayoutProps) => {
   return (
-    <div className="grid min-h-[clac(100vh-4rem)] gap-4 overflow-hidden md:grid-cols-2 lg:grid-cols-4">
-      <div className="relative h-[calc(100vh-4rem)]">
-        <div className="flex flex-col justify-center items-center h-full p-4 backdrop-blur-sm">
-          <div className="w-full max-w-lg mx-auto">
-            <h1 className="flex items-center gap2 mb-2 text-2xl">
-              <BrandIcon />
+    <div className="relative h-[calc(100vh-4rem)]  ">
+      <CarScene
+        orbitControls={false}
+        camera={<RotatingCamera />}
+        hideAllComments
+      />
+      <div className=" flex flex-col justify-center items-center absolute top-0 bg-black/20 backdrop-blur-sm bottom-0  ">
+        <div className="p-20 text-white ">
+          <div className="w-full max-w-lg mx-auto ">
+            <h1 className="flex items-center gap-2 mb-2 text-2xl">
+              {/* <BrandIcon />  */}
               <div>{title}</div>
             </h1>
             {children}
             <div className="mt-4 text-sm text-gray-300">
-              <Link href="/" className="flex gap-2 items-center">
-                <IconArrowBack className="h-4 w-4" />
-                Back to home
+              <div className="flex flex-col items-center mb-4">
+                <div className="mb-1 text-xs">Or, continue with</div>
+                <GoogleButton />
+              </div>
+              <Link href="/" className="flex items-center gap-2">
+                <IconArrowBack className="w-4 h-4" /> Back to home
               </Link>
             </div>
           </div>

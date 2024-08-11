@@ -17,7 +17,7 @@ import { RadioGroup, Radio } from "@headlessui/react";
 import { IconTypes } from "../molecules/IconTypes";
 import { FormError } from "../atoms/FormError";
 import { Button } from "../atoms/Button";
-import { use, useState } from "react";
+import { useEffect, useState } from "react";
 import { HtmlInput } from "../atoms/Input";
 import { toLocaleDateString } from "@spotfinder2/util/date";
 import { useTotalPrice } from "@spotfinder2/util/hooks/price";
@@ -48,6 +48,13 @@ export const BookSlotPopup = ({
   const totalPriceObject = useTotalPrice({
     pricePerHour: pricePerHour || undefined,
   });
+  const TotalPrice =
+    totalPriceObject.parkingCharge +
+    totalPriceObject.valetChargeDropoff +
+    totalPriceObject.valetChargePickup;
+  useEffect(() => {
+    console.log("Valet state changed:", valet);
+  }, [valet]);
   const [booking, setBooking] = useState(false);
   return (
     <div className="flex gap-2 text-left border-t-2 border-white bg-white/50 backdrop-blur-sm rounded">
@@ -66,10 +73,7 @@ export const BookSlotPopup = ({
             type: data.type,
             garageId: garage.id,
             vehicleNumber: data.vehicleNumber,
-            totalPrice:
-              totalPriceObject.parkingCharge +
-              totalPriceObject.valetChargeDropoff +
-              totalPriceObject.valetChargePickup,
+            totalPrice: TotalPrice,
             pricePerHour,
             ...(data.valet?.pickUpInfo && data.valet?.dropUpInfo
               ? {
@@ -212,14 +216,7 @@ export const BookSlotPopup = ({
               title="Valet Dropoff"
               price={totalPriceObject.valetChargeDropoff.toFixed(2)}
             />
-            <Cost
-              title="Total"
-              price={(
-                totalPriceObject.parkingCharge +
-                totalPriceObject.valetChargeDropoff +
-                totalPriceObject.valetChargePickup
-              ).toFixed(2)}
-            />
+            <Cost title="Total" price={TotalPrice.toFixed(2)} />
           </div>
         ) : null}
         <Button loading={booking} type="submit" className="w-full mt-2">

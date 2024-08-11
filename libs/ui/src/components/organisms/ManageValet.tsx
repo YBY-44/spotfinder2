@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useFormContext, useWatch } from "react-hook-form";
 import { FormSchemaBookingSlot } from "@spotfinder2/forms/src/bookingSlot";
 import { Switch } from "../atoms/Switch";
-import { Label } from "@headlessui/react";
 import { Map } from "../organisms/map/Map";
 import { Marker } from "../organisms/map/MapMarker";
 import { ParkingIcon } from "../atoms/Parkingicon";
@@ -37,11 +36,10 @@ export const ManageValet = ({
       <Switch
         checked={showValet}
         label={"Need Valet"}
-        onChange={(e) => {
+        onChange={(e: boolean) => {
           setShowValet(e);
           if (!e) {
             setValue("valet", undefined, { shouldValidate: true });
-            setValue("valet.differentLocation", false);
           } else {
             setValue("valet.pickUpInfo", { lat: lat, lng: lng });
             setValue("valet.dropUpInfo", { lat: lat, lng: lng });
@@ -161,14 +159,6 @@ export const ManageValet = ({
                 />
               </>
             ) : null}
-            {/* {valet?.dropUpInfo?.lng && valet.dropUpInfo.lat ? (
-                <>
-                <Marker
-                >
-
-                </Marker>
-                </>
-              ): null} */}
           </Map>
         </div>
       ) : null}

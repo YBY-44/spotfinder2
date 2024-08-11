@@ -43,7 +43,10 @@ export const Header = ({ type, menuItems }: IHeaderProps) => {
                   </Button>
                 </Link>
                 <Link href="/login">
-                  <Button varient="contained" className="hidden md:block">
+                  <Button
+                    varient="contained"
+                    className="hidden md:block text-white"
+                  >
                     {" Login "}
                   </Button>
                 </Link>

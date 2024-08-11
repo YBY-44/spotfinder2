@@ -23,7 +23,7 @@ export const CurrentLocationButton = () => {
         );
       }}
     >
-      <IconCurrentLocation className="stroke-1.5" />
+      <IconCurrentLocation className="stroke-1.5 rounded-md" />
     </Button>
   );
 };

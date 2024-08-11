@@ -2,7 +2,7 @@ import React from "react";
 
 export const ParkingIcon = () => {
   return (
-    <div className="flex items-center justify-center w-6 h-6 text-lg font-bold border border-black shadow-lg cursor-pointer bg-blue shadow-black/30">
+    <div className="flex items-center justify-center w-7 h-7 border cursor-pointer bg-red text-white text-lg font-bold rounded-md shadow-none">
       P
     </div>
   );

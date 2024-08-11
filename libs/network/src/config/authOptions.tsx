@@ -9,6 +9,9 @@ import { fetchGraphQL } from "../../fetch";
 import * as jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import { AuthProviderType } from "@spotfinder2/network/src/gql/generated";
+const secureCookies = process.env.NEXTAUTH_URL?.startsWith("https://");
+const hostName = new URL(process.env.NEXTAUTH_URL || "").hostname;
+const rootDomain = "spotfinder2.com";
 
 const MAX_AGE = 1 * 24 * 24 * 60;
 
@@ -129,18 +132,18 @@ export const authOptions: NextAuthOptions = {
       // ...
     },
   },
-  //   cookies: {
-  //     sessionToken: {
-  //       name: `${secureCookies ? '__Secure-' : ''}next-auth.session-token`,
-  //       options: {
-  //         httpOnly: true,
-  //         sameSite: 'lax',
-  //         path: '/',
-  //         secure: secureCookies,
-  //         domain: hostName == 'localhost' ? hostName : '.' + rootDomain, // add a . in front so that subdomains are included
-  //       },
-  //     },
-  //   },
+  cookies: {
+    sessionToken: {
+      name: `${secureCookies ? "__Secure-" : ""}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: secureCookies,
+        domain: hostName == "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
+      },
+    },
+  },
 
   // Configure callback functions
   callbacks: {

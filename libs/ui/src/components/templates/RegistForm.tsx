@@ -91,13 +91,17 @@ export const RegisterForm = ({ className, role }: ISignupFormProps) => {
       <Button type="submit" fullWidth loading={loading}>
         Register
       </Button>
-      <div className="mt-4 text-sm ">
-        Already have an autospace account?
-        <br />
-        <Link href="/login" className="font-bold underline underline-offset-4">
-          Login
-        </Link>{" "}
-        now.
+      <div className="mt-4 text-sm flex flex-col">
+        <div>Already have an spotfinder2 account?</div>
+        <div className="flex items-center mt-2">
+          <Link
+            href="/login"
+            className="font-bold bg-primary text-white p-2 px-4 mx-3 rounded-md"
+          >
+            Login
+          </Link>{" "}
+          now
+        </div>
       </div>
     </Form>
   );

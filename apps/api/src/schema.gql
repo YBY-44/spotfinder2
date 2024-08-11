@@ -99,11 +99,11 @@ type Booking {
 
 enum BookingStatus {
   BOOKED
-  VALET_ASSIGNED_FOR_CHECK_IN
-  VALET_PICKED_UP
   CHECKED_IN
-  VALET_ASSIGNED_FOR_CHECK_OUT
+  VALET_ASSIGNED_FOR_CHECK_IN
+  VALET_STOPPED
   CHECKED_OUT
+  VALET_ASSIGNED_FOR_CHECK_OUT
   VALET_RETURNED
 }
 
@@ -653,8 +653,8 @@ type Query {
   valetMe: Valet
   valetPickups(take: Float, skip: Float): [Booking!]!
   valetPickupsTotal: Float!
-  valetDrops(take: Float, skip: Float): [Booking!]!
-  valetDropsTotal: Float!
+  valetDrops(take: Float, skip: Float, status: String!): [Booking!]!
+  valetDropsTotal(status: String!): Float!
   valetAssignments(distinct: [ValetAssignmentScalarFieldEnum!], where: ValetAssignmentWhereInput, orderBy: [ValetAssignmentOrderByWithRelationInput!], cursor: ValetAssignmentWhereUniqueInput, take: Float, skip: Float): [ValetAssignment!]!
   valetAssignment(where: ValetAssignmentWhereUniqueInput!): ValetAssignment!
   admins(distinct: [AdminScalarFieldEnum!], where: AdminWhereInput, orderBy: [AdminOrderByWithRelationInput!], cursor: AdminWhereUniqueInput, take: Float, skip: Float): [Admin!]!

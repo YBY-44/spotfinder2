@@ -27,6 +27,12 @@ export class ValetsResolver {
     @Args('createValetInput') args: CreateValetInput,
     @GetUser() user: GetUserType,
   ) {
+    const validValet = await this.prisma.user.findFirst({
+      where: { uid: args.uid },
+    });
+    if (!validValet) {
+      throw new BadGatewayException('Incorrect Uid, user Not Found.');
+    }
     const company = await this.prisma.company.findFirst({
       where: { Managers: { some: { uid: user.uid } } },
     });
@@ -182,6 +188,7 @@ export class ValetsResolver {
   @Query(() => [Booking], { name: 'valetDrops' })
   async valetDrops(
     @Args() { skip, take }: PaginationInput,
+    @Args('status') status: BookingStatus,
     @GetUser() user: GetUserType,
   ) {
     const valet = await this.valetsService.validValet(user.uid);
@@ -195,13 +202,17 @@ export class ValetsResolver {
           returnLat: { not: null },
           returnValetId: null,
         },
+        status: status,
       },
     });
   }
 
   @AllowAuthenticated()
   @Query(() => Number)
-  async valetDropsTotal(@GetUser() user: GetUserType) {
+  async valetDropsTotal(
+    @GetUser() user: GetUserType,
+    @Args('status') status: BookingStatus,
+  ) {
     const valet = await this.valetsService.validValet(user.uid);
 
     return this.prisma.booking.count({
@@ -211,6 +222,7 @@ export class ValetsResolver {
           returnLat: { not: null },
           returnValetId: null,
         },
+        status: status,
       },
     });
   }

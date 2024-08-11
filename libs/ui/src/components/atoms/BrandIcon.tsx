@@ -1,14 +1,17 @@
 import React from "react";
 import { ReactNode } from "react";
+import Image from "next/image";
 export interface IBrandIconProps {
   children?: ReactNode;
 }
 export const BrandIcon = ({
-  children = <div className="bg-gray-100 shadow w-2 h-4 animate-park-car" />,
+  children = (
+    <Image src={"/LOGO.svg"} alt={"spotfinder2"} width={40} height={50} />
+  ),
 }: IBrandIconProps) => {
   return (
     <div className="inline-block">
-      <div className="flex items-center justify-center border-2 border-primary w-4 h-6">
+      <div className="flex items-center justify-center border border-red rounded-lg w-full ">
         {children}
       </div>
     </div>
