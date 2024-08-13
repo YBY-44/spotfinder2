@@ -14,9 +14,12 @@ const hostName = new URL(process.env.NEXTAUTH_URL || "").hostname;
 const MAX_AGE = 1 * 24 * 24 * 60;
 function getDomain(host: string) {
   if (hostName === "localhost") return hostName;
-  if (hostName.includes("spotfinder2-web.vercel.app")) return "spotfinder2-web.vercel.app";
-  if (hostName.includes("spotfinder2-web-manager.vercel.app")) return "spotfinder2-web-manager.vercel.app";
-  if (hostName.includes("spotfinder2-web-valet.vercel.app")) return "spotfinder2-web-valet.vercel.app";
+  if (hostName.includes("spotfinder2-web.vercel.app"))
+    return "spotfinder2-web.vercel.app";
+  if (hostName.includes("spotfinder2-web-manager.vercel.app"))
+    return "spotfinder2-web-manager.vercel.app";
+  if (hostName.includes("spotfinder2-web-valet.vercel.app"))
+    return "spotfinder2-web-valet.vercel.app";
   // 可能还需要添加其他域名的判断
   return hostName; // 默认返回
 }
