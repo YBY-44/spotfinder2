@@ -17,7 +17,7 @@ export const Brand = ({
       <div className="text-xl">
         {shortForm ? (
           <div className="flex gap-1 ml-5">
-            <BrandIcon />  SpotFinder2
+            <BrandIcon /> SpotFinder2
           </div>
         ) : (
           <div className="flex gap-2 items-center font-medium tracking-tighter font-playfair">

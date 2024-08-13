@@ -31,7 +31,6 @@ export const GarageMarket = ({
         open={showPopup}
         setOpen={setShowPopup}
       >
-
         <FormProviderBookSlot defaultValues={{ endtime, starttime }}>
           <BookSlotPopup garage={marker} />
         </FormProviderBookSlot>
