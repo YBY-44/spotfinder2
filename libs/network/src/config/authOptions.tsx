@@ -15,10 +15,13 @@ const MAX_AGE = 1 * 24 * 24 * 60;
 function getDomain(host: string) {
   console.log("hostName", hostName);
   if (hostName === "localhost") return hostName;
-  if (hostName.includes("spotfinder2-web.vercel.app")) return "spotfinder2-web.vercel.app";
-  if (hostName.includes("spotfinder2-web-manager.vercel.app")) return "spotfinder2-web-manager.vercel.app";
-  if (hostName.includes("spotfinder2-web-valet.vercel.app")) return "spotfinder2-web-valet.vercel.app";
-  
+  if (hostName.includes("spotfinder2-web.vercel.app"))
+    return "spotfinder2-web.vercel.app";
+  if (hostName.includes("spotfinder2-web-manager.vercel.app"))
+    return "spotfinder2-web-manager.vercel.app";
+  if (hostName.includes("spotfinder2-web-valet.vercel.app"))
+    return "spotfinder2-web-valet.vercel.app";
+
   return hostName; // 默认返回
 }
 export const authOptions: NextAuthOptions = {

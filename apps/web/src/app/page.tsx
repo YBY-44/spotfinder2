@@ -10,7 +10,7 @@ export default function Home() {
       <div className="absolute top-16 bottom-0 left-0 right-0">
         <CarScene orbitControls={false} camera={<RotatingCamera />} />
       </div>
-      <div className="flex flex-col items-start space-y-2 font-black text-8xl mt-10">
+      <div className="flex flex-col items-start space-y-2 font-black text-6xl mt-10">
         <div className="z-50 inline-block bg-primary rounded-md p-5 text-white">
           Need
         </div>{" "}

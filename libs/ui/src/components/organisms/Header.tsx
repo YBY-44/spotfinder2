@@ -18,7 +18,7 @@ export type IHeaderProps = {
 export const Header = ({ type, menuItems }: IHeaderProps) => {
   const session = useSession();
   const uid = session?.data?.user?.uid;
-  const [open, setOpen] = useDialogState(false);
+  // const [open, setOpen] = useDialogState(false);
   return (
     <header>
       <nav className="fixed z-50 top-0 w-full shadow-md shadow-gray-300/10 bg-white/50 backdrop-blur-md">
@@ -27,25 +27,22 @@ export const Header = ({ type, menuItems }: IHeaderProps) => {
             <Brand type={type} className="hidden h-10 sm:block" />
             <Brand type={type} shortForm className="block sm:hidden" />
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mr-4">
             {uid ? (
               <div className="flex gap-6 items-center">
-                {/* <div className="text-sm mr-6 flex gap-3">
-                    <Menus menuItems={menuItems} />
-                  </div> */}
                 <NavSidebar menuItems={menuItems} />
               </div>
             ) : (
               <>
                 <Link href="/regist">
-                  <Button varient="outlined" className="hidden md:block">
+                  <Button varient="outlined" className="md:block">
                     Register
                   </Button>
                 </Link>
                 <Link href="/login">
                   <Button
                     varient="contained"
-                    className="hidden md:block text-white"
+                    className="md:block text-white"
                   >
                     {" Login "}
                   </Button>
