@@ -12,9 +12,6 @@ import { AuthProviderType } from "@spotfinder2/network/src/gql/generated";
 const secureCookies = process.env.NEXTAUTH_URL?.startsWith("https://");
 const hostName = new URL(process.env.NEXTAUTH_URL || "").hostname;
 const rootDomain = "vercel.app";
-console.log("link:" + process.env.NEXTAUTH_URL);
-console.log("hostName:" + hostName);
-console.log("rootDomain:" + rootDomain);
 const MAX_AGE = 1 * 24 * 24 * 60;
 
 export const authOptions: NextAuthOptions = {
