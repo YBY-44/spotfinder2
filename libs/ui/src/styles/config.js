@@ -1,6 +1,6 @@
 import colors from "tailwindcss/colors";
 
-const brandHue = 13;
+const brandHue = 6;
 
 // #ffdd00 for brandHue 52
 // 定义颜色调色板

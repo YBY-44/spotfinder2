@@ -24,12 +24,14 @@ export const GarageMarket = ({
   }
   return (
     <>
+      <div className="h-16"></div>
       <Dialog
         title="Booking"
         widthClassName="max-w-3xl"
         open={showPopup}
         setOpen={setShowPopup}
       >
+
         <FormProviderBookSlot defaultValues={{ endtime, starttime }}>
           <BookSlotPopup garage={marker} />
         </FormProviderBookSlot>

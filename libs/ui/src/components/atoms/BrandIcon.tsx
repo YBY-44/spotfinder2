@@ -6,7 +6,7 @@ export interface IBrandIconProps {
 }
 export const BrandIcon = ({
   children = (
-    <Image src={"/logo2.png"} alt={"spotfinder2"} width={40} height={50} />
+    <Image src={"/LOGO.svg"} alt={"spotfinder2"} width={45} height={50} />
   ),
 }: IBrandIconProps) => {
   return (

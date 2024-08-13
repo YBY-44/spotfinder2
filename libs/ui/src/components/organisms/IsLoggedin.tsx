@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { LoadingPage } from "../molecules/Loader";
 import { AlertSection } from "../molecules/AlertSection";
 import { Link } from "@mui/material";
+import { Button } from "../atoms/Button";
 type RenderPropChild = (uid: string) => ReactNode;
 export const IsLoggedIn = ({
   children,
@@ -22,7 +23,9 @@ export const IsLoggedIn = ({
     } else {
       return (
         <AlertSection title="You are not logged in.">
-          <Link href="/login">Login</Link>
+          <Link href="/login" >
+            <Button size="lg">Login</Button>
+          </Link>
         </AlertSection>
       );
     }

@@ -48,8 +48,8 @@ export const Dialog = ({
         >
           <div className="fixed inset-0 bg-black/20"></div>
         </TransitionChild>
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-full p-4 text-center">
+        <div className="fixed mt-10 inset-0 overflow-y-auto">
+          <div className="mt-3 flex items-center justify-center min-h-full p-4 text-center">
             <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
