@@ -134,18 +134,18 @@ export const authOptions: NextAuthOptions = {
       // ...
     },
   },
-  cookies: {
-    sessionToken: {
-      name: `${secureCookies ? "__Secure-" : ""}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: secureCookies,
-        domain: hostName === "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
-      },
-    },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: `${secureCookies ? "__Secure-" : ""}next-auth.session-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: secureCookies,
+  //       domain: hostName === "localhost" ? hostName : "." + rootDomain, // add a . in front so that subdomains are included
+  //     },
+  //   },
+  // },
 
   // Configure callback functions
   callbacks: {

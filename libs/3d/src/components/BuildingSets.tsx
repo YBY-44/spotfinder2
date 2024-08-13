@@ -27,6 +27,7 @@ export const BuildingSets = ({
       {BUILDING_SETS[buildingSets].map(({ length, position, width }, i) => {
         return (
           <Building
+            key={i}
             position={
               position.map((pos) => {
                 return pos * 2;
