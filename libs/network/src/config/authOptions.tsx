@@ -11,7 +11,7 @@ import { JWT } from "next-auth/jwt";
 import { AuthProviderType } from "@spotfinder2/network/src/gql/generated";
 const secureCookies = process.env.NEXTAUTH_URL?.startsWith("https://");
 const hostName = new URL(process.env.NEXTAUTH_URL || "").hostname;
-const rootDomain = "spotfinder2.com";
+const rootDomain = ".vercel.app";
 
 const MAX_AGE = 1 * 24 * 24 * 60;
 
