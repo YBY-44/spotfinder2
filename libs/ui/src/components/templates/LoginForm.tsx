@@ -60,10 +60,10 @@ export const LoginForm = ({ className }: ILoginFormProps) => {
         }
       })}
     >
-      <HtmlLabel error={errors.email?.message}>
+      <HtmlLabel error={errors.email?.message} className="text-white">
         <HtmlInput {...register("email")} className="" />
       </HtmlLabel>
-      <HtmlLabel error={errors.password?.message}>
+      <HtmlLabel error={errors.password?.message} className="text-white">
         <HtmlInput {...register("password")} className="" type="password" />
       </HtmlLabel>
       <Button type="submit">Submit</Button>

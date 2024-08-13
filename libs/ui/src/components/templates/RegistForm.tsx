@@ -61,14 +61,14 @@ export const RegisterForm = ({ className, role }: ISignupFormProps) => {
         }
       })}
     >
-      <HtmlLabel title="Email" error={errors.email?.message}>
+      <HtmlLabel title="Email" error={errors.email?.message} className="text-white">
         <HtmlInput
           className="text-black"
           placeholder="Enter the email."
           {...register("email")}
         />
       </HtmlLabel>
-      <HtmlLabel title="Password" error={errors.password?.message}>
+      <HtmlLabel title="Password" error={errors.password?.message} className="text-white">
         <HtmlInput
           className="text-black"
           type="password"
@@ -76,7 +76,7 @@ export const RegisterForm = ({ className, role }: ISignupFormProps) => {
           {...register("password")}
         />
       </HtmlLabel>
-      <HtmlLabel title="Display name" error={errors.name?.message}>
+      <HtmlLabel title="Display name" error={errors.name?.message} className="text-white">
         <HtmlInput
           className="text-black"
           placeholder="Enter your name."
@@ -84,7 +84,7 @@ export const RegisterForm = ({ className, role }: ISignupFormProps) => {
         />
       </HtmlLabel>
       {Object.keys(errors).length ? (
-        <div className="text-xs text-gray-600">
+        <div className="text-xs text-white-600">
           Please fix the above {Object.keys(errors).length} errors
         </div>
       ) : null}
