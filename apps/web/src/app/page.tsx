@@ -23,7 +23,28 @@ export default function Home() {
         >
           <IconSearch /> Search now
         </Link>
+        <div className='z-50 inline-block bg-primary rounded-md p-5 text-white text-lg font-normal'>
+         If you want to publish your own parking spots, you can regist as a provider by clicking the button below.
+         <Link
+            href='https://spotfinder2-web-manager.vercel.app'
+            className='z-10 flex items-center gap-2 p-3 pr-6 text-xl font-medium text-black underline underline-offset-4 bg-primary rounded-md hover:text-gray-50 text-white'
+          >
+            https://spotfinder2-web-manager.vercel.app
+          </Link>
+        </div>
+
+        <div className='z-50 inline-block bg-primary rounded-md p-5 text-white text-lg font-normal'>
+         If you want to be a valet driver, you can regist as a valet driver by clicking the link below.
+         
+         <Link
+            href='https://spotfinder2-web-valet.vercel.app'
+            className='z-10 flex items-center gap-2 p-3 pr-6 text-xl font-medium text-black underline underline-offset-4 bg-primary rounded-md hover:text-gray-50 text-white'
+          >
+            https://spotfinder2-web-valet.vercel.app
+          </Link>
+        </div>
       </div>
+      
     </main>
   );
 }

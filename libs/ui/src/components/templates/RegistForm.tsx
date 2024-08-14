@@ -61,14 +61,22 @@ export const RegisterForm = ({ className, role }: ISignupFormProps) => {
         }
       })}
     >
-      <HtmlLabel title="Email" error={errors.email?.message} className="text-white">
+      <HtmlLabel
+        title="Email"
+        error={errors.email?.message}
+        className="text-white"
+      >
         <HtmlInput
           className="text-black"
           placeholder="Enter the email."
           {...register("email")}
         />
       </HtmlLabel>
-      <HtmlLabel title="Password" error={errors.password?.message} className="text-white">
+      <HtmlLabel
+        title="Password"
+        error={errors.password?.message}
+        className="text-white"
+      >
         <HtmlInput
           className="text-black"
           type="password"
@@ -76,7 +84,11 @@ export const RegisterForm = ({ className, role }: ISignupFormProps) => {
           {...register("password")}
         />
       </HtmlLabel>
-      <HtmlLabel title="Display name" error={errors.name?.message} className="text-white">
+      <HtmlLabel
+        title="Display name"
+        error={errors.name?.message}
+        className="text-white"
+      >
         <HtmlInput
           className="text-black"
           placeholder="Enter your name."
